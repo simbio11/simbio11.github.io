@@ -30,8 +30,24 @@ SPDX-License-Identifier: AGPL-3.0-only
 	<link rel="shortcut icon" type="image/png" href="./logo512.png" />
 	<link rel="canonical" href="https://pokerogue.net" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
-	<style type="text/css">@font-face{font-family:emerald;src:url(./fonts/pokemon-emerald-pro.ttf)format("truetype")}@font-face{font-family:pkmnems;src:url(./fonts/pkmnems.ttf)format("truetype")}</style>
+	<style type="text/css">@font-face{font-family:emerald;src:url(./fonts/pokemon-emerald-pro.ttf)format("truetype")}@font-face{font-family:pkmnems;src:url(./fonts/pkmnems.ttf)format("truetype")}</style>
+
 	<link rel="manifest" href="./manifest.webmanifest">
+  <script>
+    // 세이브 자동 복원 — 로컬에 세이브가 없을 때만 preload 파일을 심는다
+    (function () {
+      try {
+        var KEY = "data_Guest";
+        if (localStorage.getItem(KEY)) return;
+        var x = new XMLHttpRequest();
+        x.open("GET", "./preload/data_Guest.prsv", false);
+        x.send();
+        if (x.status === 200 && x.responseText && x.responseText.length > 1000) {
+          localStorage.setItem(KEY, x.responseText);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
@@ -179,6 +195,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</div>
 
 		</div>
-	</div>
+	</div>
+
 </body>
 </html>
